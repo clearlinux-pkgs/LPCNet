@@ -1,0 +1,55 @@
+From 0f24e1a62a189d60766f8dea1e47be7e24c3f30c Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Tue, 5 May 2020 14:57:48 -0700
+Subject: [PATCH] Build fixes
+
+---
+ CMakeLists.txt | 32 +++++---------------------------
+ 1 file changed, 5 insertions(+), 27 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 680f52c..bc1ee70 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -97,33 +97,11 @@ endif()
+ set(LPCNET_ROOT http://rowetel.com/downloads/deep/)
+ set(LPCNET_FILE lpcnet_191005_v1.0.tgz)
+ set(LPCNET_URL ${LPCNET_ROOT}${LPCNET_FILE})
+-
+-if(EXISTS ${CMAKE_BINARY_DIR}/${LPCNET_FILE})
+-    set(lpcnet_SOURCE_DIR ${CMAKE_BINARY_DIR}/src)
+-    file(MAKE_DIRECTORY ${lpcnet_SOURCE_DIR})
+-    execute_process(COMMAND tar -xzf ${CMAKE_BINARY_DIR}/${LPCNET_FILE} -C ${CMAKE_BINARY_DIR}/src)
+-
+-# Work around not having the FetchContent module.
+-elseif(CMAKE_VERSION VERSION_LESS 3.11.4)
+-    set(lpcnet_SOURCE_DIR ${CMAKE_BINARY_DIR}/src)
+-    if(NOT EXISTS ${lpcnet_SOURCE_DIR})
+-        file(DOWNLOAD ${LPCNET_URL}
+-            ${CMAKE_BINARY_DIR}/${LPCNET_FILE}
+-            SHOW_PROGRESS
+-        )
+-        file(MAKE_DIRECTORY ${lpcnet_SOURCE_DIR})
+-        execute_process(COMMAND tar -xzf ${CMAKE_BINARY_DIR}/${LPCNET_FILE} -C ${CMAKE_BINARY_DIR}/src)
+-    endif()
+-else()
+-    include(FetchContent)
+-    FetchContent_Declare(
+-        lpcnet
+-        URL ${LPCNET_URL})
+-    FetchContent_GetProperties(lpcnet)
+-    if(NOT lpcnet_POPULATED)
+-        FetchContent_Populate(lpcnet)
+-    endif()
+-endif()
++get_filename_component(LPCNET_DIRNAME ${LPCNET_FILE} NAME_WLE)
++set(lpcnet_SOURCE_DIR ${CMAKE_BINARY_DIR}/src)
++file(MAKE_DIRECTORY ${lpcnet_SOURCE_DIR})
++file(GLOB lpcnet_SOURCE_FILES ${CMAKE_SOURCE_DIR}/../${LPCNET_DIRNAME}/*)
++file(COPY ${lpcnet_SOURCE_FILES} DESTINATION ${lpcnet_SOURCE_DIR})
+ 
+ # Find codec2
+ if(CODEC2_BUILD_DIR)
+-- 
+2.26.2
+
