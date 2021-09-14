@@ -1,0 +1,37 @@
+From 50d6a2b667018724ab823ac6d7248adc81a76b8e Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Tue, 14 Sep 2021 16:22:06 -0700
+Subject: [PATCH] Change cmake search subtly for Codec2 1.0
+
+---
+ CMakeLists.txt | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bc1ee70323d4..69cb0b5dae35 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -105,16 +105,16 @@ file(COPY ${lpcnet_SOURCE_FILES} DESTINATION ${lpcnet_SOURCE_DIR})
+ 
+ # Find codec2
+ if(CODEC2_BUILD_DIR)
+-    find_package(codec2 REQUIRED
++    find_package(Codec2 REQUIRED
+         PATHS ${CODEC2_BUILD_DIR}
+         NO_DEFAULT_PATH
+-        CONFIGS codec2.cmake
++        CONFIGS Codec2Config.cmake
+     )
+-    if(codec2_FOUND)
++    if(Codec2_FOUND)
+         message(STATUS "Codec2 library found in build tree.")
+     endif()
+ else()
+-    find_package(codec2 REQUIRED)
++    find_package(Codec2 REQUIRED)
+ endif()
+ 
+ add_subdirectory(src)
+-- 
+2.33.0
+

@@ -4,7 +4,7 @@
 #
 Name     : LPCNet
 Version  : 0.2
-Release  : 1
+Release  : 2
 URL      : https://github.com/drowe67/LPCNet/archive/v0.2/LPCNet-0.2.tar.gz
 Source0  : https://github.com/drowe67/LPCNet/archive/v0.2/LPCNet-0.2.tar.gz
 Source1  : http://rowetel.com/downloads/deep/lpcnet_191005_v1.0.tgz
@@ -14,8 +14,10 @@ License  : BSD-3-Clause
 Requires: LPCNet-bin = %{version}-%{release}
 Requires: LPCNet-license = %{version}-%{release}
 BuildRequires : buildreq-cmake
+BuildRequires : codec2-dev
 BuildRequires : pkgconfig(codec2)
 Patch1: 0001-Build-fixes.patch
+Patch2: 0002-Change-cmake-search-subtly-for-Codec2-1.0.patch
 
 %description
 # LPCNet for FreeDV
@@ -57,25 +59,26 @@ cd lpcnet_191005_v1.0
 tar xf %{_sourcedir}/lpcnet_191005_v1.0.tgz
 cd %{_builddir}/LPCNet-0.2
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1588719383
+export SOURCE_DATE_EPOCH=1631662197
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 %cmake ..
-make  %{?_smp_mflags}  VERBOSE=1
+make  %{?_smp_mflags}
 popd
 
 %check
@@ -86,7 +89,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 cd clr-build; make test || :
 
 %install
-export SOURCE_DATE_EPOCH=1588719383
+export SOURCE_DATE_EPOCH=1631662197
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/LPCNet
 cp %{_builddir}/LPCNet-0.2/COPYING %{buildroot}/usr/share/package-licenses/LPCNet/b3209e40e62e1f6c8e67b6fd25b88693419baa4d
