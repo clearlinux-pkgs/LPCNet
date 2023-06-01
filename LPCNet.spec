@@ -5,7 +5,7 @@
 #
 Name     : LPCNet
 Version  : 0dc5935bbf49ff3ba3c9654cc2f802838ebbaead
-Release  : 4
+Release  : 5
 URL      : https://github.com/drowe67/LPCNet/archive/0dc5935bbf49ff3ba3c9654cc2f802838ebbaead.tar.gz
 Source0  : https://github.com/drowe67/LPCNet/archive/0dc5935bbf49ff3ba3c9654cc2f802838ebbaead.tar.gz
 Source1  : http://rowetel.com/downloads/deep/lpcnet_191005_v1.0.tgz
@@ -82,7 +82,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1683300233
+export SOURCE_DATE_EPOCH=1685631461
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -124,7 +124,7 @@ cd ../clr-build-avx2;
 make test || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1683300233
+export SOURCE_DATE_EPOCH=1685631461
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/LPCNet
 cp %{_builddir}/LPCNet-%{version}/COPYING %{buildroot}/usr/share/package-licenses/LPCNet/b3209e40e62e1f6c8e67b6fd25b88693419baa4d || :
@@ -148,7 +148,6 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/liblpcnetfreedv.so
 /usr/include/lpcnet/lpcnet_freedv.h
 /usr/lib64/cmake/lpcnetfreedv/lpcnetfreedv-config-relwithdebinfo.cmake
 /usr/lib64/cmake/lpcnetfreedv/lpcnetfreedv-config.cmake
