@@ -5,7 +5,7 @@
 #
 Name     : LPCNet
 Version  : 0dc5935bbf49ff3ba3c9654cc2f802838ebbaead
-Release  : 5
+Release  : 6
 URL      : https://github.com/drowe67/LPCNet/archive/0dc5935bbf49ff3ba3c9654cc2f802838ebbaead.tar.gz
 Source0  : https://github.com/drowe67/LPCNet/archive/0dc5935bbf49ff3ba3c9654cc2f802838ebbaead.tar.gz
 Source1  : http://rowetel.com/downloads/deep/lpcnet_191005_v1.0.tgz
